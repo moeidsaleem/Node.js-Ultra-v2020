@@ -1,0 +1,28 @@
+{
+  "name": "souqalmal-codility-backend",
+  "version": "1.0.0",
+  "description": "Challenge project for souqalmal interview. ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
+    "prod": "tsc && node ./build/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moeidsaleem/souqalmal-codility-backend.git"
+  },
+  "author": "moeidsaleem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moeidsaleem/souqalmal-codility-backend/issues"
+  },
+  "homepage": "https://github.com/moeidsaleem/souqalmal-codility-backend#readme",
+  "dependencies": {
+    "@types/express": "^4.17.1",
+    "express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.43",
+    "typescript": "^3.6.3"
+  }
+}
