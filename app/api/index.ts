@@ -1,7 +1,10 @@
 import { Router } from 'express';
+import auth from './routes/auth';
 
-//setting up basic router
+
+// guaranteed to get dependencies
 export default () => {
 	const app = Router();
+	auth(app);
 	return app
 }

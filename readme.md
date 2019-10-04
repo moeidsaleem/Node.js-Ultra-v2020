@@ -33,7 +33,8 @@ or you can also use
 - Express 
 - MongoDB / Mongoose 
 - Typedi 
-- 
+-  mongoose-validation-error-transform
+
 
 
 ### Steps

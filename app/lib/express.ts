@@ -5,7 +5,7 @@ import routes from '../api';
 import config from '../config';
 export default ({ app }: { app: express.Application }) => {
   /**
-   * API Status Checker
+   * API Status Check !!
    */
   app.get('/status', (req, res) => {
     res.status(200).end();

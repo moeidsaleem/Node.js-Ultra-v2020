@@ -3,10 +3,10 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
-}
-
-
-export interface IUserInput {
+    salt: string;
+  }
+  
+  export interface IUserInput {
     name: string;
     email: string;
     password: string;
