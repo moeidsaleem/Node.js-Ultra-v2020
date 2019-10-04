@@ -11,6 +11,8 @@ export default async ({ expressApp }) => {
       name: 'userModel',
       model: require('../models/user').default,
     };
+
+    //using agenda 
  
     await expressLoader({ app: expressApp });
     Logger.info('Express ready to go!!');
