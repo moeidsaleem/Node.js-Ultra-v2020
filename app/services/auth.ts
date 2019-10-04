@@ -2,7 +2,7 @@ import { Service, Inject, Token } from 'typedi';
 import jwt from 'jsonwebtoken'
 import config from '../config';
 import { randomBytes } from 'crypto';
-import {IUser } from '../interfaces/IUser';
+import {IUser,IUserInput } from '../interfaces/IUser';
 
 import argon2 from 'argon2';
 
@@ -15,7 +15,7 @@ export default class AuthService{
         @Inject('logger') private logger,
 
     ){}
-    public async signUp(userInputDTO: IUser): Promise<{ user: IUser; token: string }> {
+    public async signUp(userInputDTO: IUserInput): Promise<{ user: IUser; token: string }> {
 
         try{
             const salt = randomBytes(32);
@@ -38,7 +38,7 @@ export default class AuthService{
           }
 
     }
-    public async SignIn(email: string, password: string): Promise<{ user: IUser; token: string }> {
+    public async signIn(email: string, password: string): Promise<{ user: IUser; token: string }> {
         const userRecord = await this.userModel.findOne({email});
         if(!userRecord){
             throw new Error("User not registerd.")
