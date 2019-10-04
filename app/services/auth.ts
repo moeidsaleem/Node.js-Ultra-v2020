@@ -15,9 +15,7 @@ export default class AuthService{
         @Inject('logger') private logger,
 
     ){}
-
-
-    public async SignUp(userInputDTO: IUser): Promise<{ user: IUser; token: string }> {
+    public async signUp(userInputDTO: IUser): Promise<{ user: IUser; token: string }> {
 
         try{
             const salt = randomBytes(32);
@@ -29,7 +27,7 @@ export default class AuthService{
               salt: salt.toString('hex'),
               password: hashedPassword,
             });
-            this.logger.silly('Generating JWT');
+            this.logger.silly('Generating JWT :)');
            const token = this.generateToken(userRecord);
            const user = userRecord.toObject();
 
@@ -38,6 +36,23 @@ export default class AuthService{
             this.logger.error(e);
             throw e;
           }
+
+    }
+    public async SignIn(email: string, password: string): Promise<{ user: IUser; token: string }> {
+        const userRecord = await this.userModel.findOne({email});
+        if(!userRecord){
+            throw new Error("User not registerd.")
+        }
+        this.logger.silly("Checking Password.");
+        const validPassword = await argon2.verify(userRecord.password, password);
+        if(validPassword){
+            this.logger.silly(" Password Validated")
+            const token =this.generateToken(userRecord);
+            const user = userRecord.toObject();
+            return {user, token}
+        }else{
+            throw new Error("Invalid Password");
+        }
 
     }
 
