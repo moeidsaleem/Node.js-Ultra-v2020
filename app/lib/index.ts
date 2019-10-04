@@ -1,6 +1,7 @@
 import expressLoader from './express';
 import mongooseLoader from './mongoose';
 import Logger from './logger';
+import injector from './injector'
 
 export default async ({ expressApp }) => {
 
@@ -12,17 +13,13 @@ export default async ({ expressApp }) => {
       model: require('../models/user').default,
     };
 
-    //using agenda 
-
-  // It returns the agenda instance because it's needed in the subsequent loaders
-  const { agenda } = await dependencyInjectorLoader({
-    mongoConnection,
-    models: [
-      userModel,
-      // salaryModel,
-      // whateverModel
-    ],
-  });
+  //   //using agenda 
+  // const { agenda } = await injector({
+  //   mongoConnection,
+  //   models: [
+  //     userModel
+  //   ]
+  // });
  
     await expressLoader({ app: expressApp });
     Logger.info('Express ready to go!!');
