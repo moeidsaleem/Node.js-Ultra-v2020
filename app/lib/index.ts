@@ -3,8 +3,10 @@ import mongooseLoader from './mongoose';
 import Logger from './logger';
 
 export default async ({ expressApp }) => {
-    const mongoConnection = await mongooseLoader();
-    Logger.info('Mongo Connected & Loaded!!');
+
+    const mongoConnection = await mongooseLoader()
+    Logger.info("Mongodb lock and loaded!!")
+
     const userModel = {
       name: 'userModel',
       model: require('../models/user').default,
