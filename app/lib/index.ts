@@ -10,12 +10,18 @@ export default async ({ expressApp }) => {
       name: 'userModel',
       model: require('../models/user').default,
     };
+    const shopModel ={
+      name:'shopModel',
+      model: require('../models/shop').default,
+    }
   const { agenda } = await injector({
     mongoConnection,
     models: [
-      userModel
+      userModel,
+      shopModel
     ]
   });
+
     await expressLoader({ app: expressApp });
     Logger.info('Express ready to go!!');
   };

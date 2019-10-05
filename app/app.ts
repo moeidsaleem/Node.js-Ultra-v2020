@@ -6,7 +6,6 @@ import Logger from './lib/logger';
 async function startServer() {
   const app = express();
   await require('./lib').default({ expressApp: app });
-  console.log('config', config)
   app.listen(config.port, (err: any) => {
     if (err) {
       Logger.error(err);

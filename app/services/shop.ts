@@ -1,14 +1,12 @@
-import { Service, Inject } from 'typedi';
-import jwt from 'jsonwebtoken';
+import Container, { Service, Inject } from 'typedi';
 import config from '../config';
-import argon2 from 'argon2';
-import { randomBytes } from 'crypto';
 import { IShop, IShopInput } from '../interfaces/IShop';
 
 @Service()
-export default class AuthService {
+export default class ShopService {
+
   constructor(
-      @Inject('shopModel') private shopModel : Models.UserModel,
+      @Inject('shopModel') private shopModel : Models.ShopModel,
       @Inject('logger') private logger,
   ) {}
   public async getShops(): Promise<{ shops: Array<IShop>; }> {
@@ -18,7 +16,7 @@ export default class AuthService {
         throw new Error('No Shops found!');
       }
        this.logger.silly('Sending welcome email');
-      const shops = shopRecord.tObject();
+      const shops = shopRecord;
       return { shops };
     } catch (e) {
        this.logger.error(e);
@@ -27,21 +25,37 @@ export default class AuthService {
   }
 
 
-  public async addShop(shopInputDTO: IShopInput): Promise<{ shops: IShop }> {
+  public async addShop(shopInputDTO: IShopInput): Promise<{ shop: IShop; success:boolean}> {
     try {
       const shopRecord = await this.shopModel.create({
         title:shopInputDTO.title,
         photo:shopInputDTO.photo
       })
+      console.log('ham cvhalein')
       if (!shopRecord) {
         throw new Error('Shop cannot be created');
       }
-      const shops = shopRecord.tObject();
-      return { shops };
+      const shop = shopRecord;
+      const success = true;
+      console.log('shop',shop)
+      return { shop, success };
     } catch (e) {
+      console.log("ERRRRRRORRR_____RRRRR__RRRR", e)
        this.logger.error(e);
       throw e;
     }
+  }
+
+  public async deleteShop(shopId:IShopInput): Promise<{success:boolean;}> {
+  try{
+   const shopRecord= this.shopModel.remove( {"_id": ObjectId("4d512b45cc9374271b02ec4f")});
+
+  }catch(e){
+
+  }
+
+
+    return {success:true}
   }
 
 

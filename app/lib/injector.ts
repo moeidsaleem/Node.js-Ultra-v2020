@@ -7,12 +7,12 @@ export default ({ mongoConnection, models }: { mongoConnection; models: { name: 
   try {
     models.forEach(m => {
       Container.set(m.name, m.model);
+      console.log('m--',m.name)
     });
 
     const agendaInstance = agendaFactory({ mongoConnection });
 
     Container.set('agendaInstance', agendaInstance);
-    console.log(LoggerInstance);
     Container.set('logger', LoggerInstance)
 
     LoggerInstance.info('✌️ Agenda injected into container');

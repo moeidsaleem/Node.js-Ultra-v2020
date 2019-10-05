@@ -1,5 +1,6 @@
 import { Document, Model } from 'mongoose';
 import { IUser } from '../../interfaces/IUser';
+import { IShop } from '../../interfaces/IShop';
 
 declare global {
   namespace Express {
@@ -8,6 +9,7 @@ declare global {
     }    
   }
   namespace Models {
+    export type ShopModel = Model<IShop & Document>;
     export type UserModel = Model<IUser & Document>;
   }
   
