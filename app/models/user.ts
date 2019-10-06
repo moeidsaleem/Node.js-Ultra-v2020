@@ -23,9 +23,8 @@ const User = new mongoose.Schema(
         },
         location: {
             type: { type: String },
-            coordinates: [],
-            index:true
-           },
+            coordinates: []
+                   },
 
 },{
     timestamp: true

@@ -15,7 +15,7 @@ export default (app: Router) => {
   route.get('/all', middlewares.isAuth, middlewares.attachCurrentUser,async (req: Request, res: Response) => {
 
     try{
-        const {shops} = await shopServiceInstance.getShops();
+        const {shops} = await shopServiceInstance.getShops(req.currentUser.location);
         return res.json({ shops }).status(200);
 
     }catch(e){
@@ -34,7 +34,8 @@ export default (app: Router) => {
     celebrate({
         body:Joi.object({
             title: Joi.string().required(),
-            photo: Joi.string().required()
+            photo: Joi.string().required(),
+            location:Joi.object()
         })
     }), async(req:Request, res:Response, next: NextFunction)=>{
     // const logger = Container.get('logger');

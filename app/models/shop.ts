@@ -12,10 +12,16 @@ const Shop = new mongoose.Schema(
             type: String,
             lowecase: true,
             required:false
-        }
+        },
+        location: {
+            type: { type: String },
+            coordinates: []
+          },
+
 
 },{
     timestamp: true
 })
+Shop.index({ "location": "2dsphere" });
 
 export default mongoose.model<IShop & mongoose.Document>('Shop', Shop)
