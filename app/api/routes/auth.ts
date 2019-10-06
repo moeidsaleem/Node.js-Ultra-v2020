@@ -16,6 +16,7 @@ export default (app:Router)=>{
             name: Joi.string().required(),
             email: Joi.string().required(),
             password: Joi.string().required(),
+            location:Joi.object()
         })
     }), async(req:Request, res:Response, next: NextFunction)=>{
     const logger = Container.get('logger');
@@ -34,7 +35,8 @@ export default (app:Router)=>{
     route.post('/signin', celebrate({
         body: Joi.object({
             email: Joi.string().required(),
-            password: Joi.string().required()
+            password: Joi.string().required(),
+            location:Joi.object()
         })
     }), async (req:Request, res:Response, next:NextFunction)=>{
         try{

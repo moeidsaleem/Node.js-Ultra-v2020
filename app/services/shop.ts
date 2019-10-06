@@ -51,7 +51,6 @@ export default class ShopService {
         photo: shopInputDTO.photo,
         location:shopInputDTO.location
       })
-      console.log('ham cvhalein')
       if (!shopRecord) {
         throw new Error('Shop cannot be created');
       }
