@@ -20,7 +20,12 @@ const User = new mongoose.Schema(
         role:{
             type: String,
             default: 'user'
-        }
+        },
+        location: {
+            type: { type: String },
+            coordinates: [],
+            index:true
+           },
 
 },{
     timestamp: true

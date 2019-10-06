@@ -4,6 +4,7 @@ export interface IUser {
     email: string;
     password: string;
     salt: string;
+    location: any;
   }
   
   export interface IUserInput {
