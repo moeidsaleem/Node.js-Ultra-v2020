@@ -1,35 +1,35 @@
 import Container, { Service, Inject } from 'typedi';
 import config from '../config';
 import { IShop, IShopInput } from '../interfaces/IShop';
-
+import mongoose from 'mongoose'
 @Service()
 export default class ShopService {
 
   constructor(
-      @Inject('shopModel') private shopModel : Models.ShopModel,
-      @Inject('logger') private logger,
-  ) {}
+    @Inject('shopModel') private shopModel: Models.ShopModel,
+    @Inject('logger') private logger,
+  ) { }
   public async getShops(): Promise<{ shops: Array<IShop>; }> {
     try {
       const shopRecord = await this.shopModel.find();
       if (!shopRecord) {
         throw new Error('No Shops found!');
       }
-       this.logger.silly('Sending welcome email');
+      this.logger.silly('Sending welcome email');
       const shops = shopRecord;
       return { shops };
     } catch (e) {
-       this.logger.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
 
 
-  public async addShop(shopInputDTO: IShopInput): Promise<{ shop: IShop; success:boolean}> {
+  public async addShop(shopInputDTO: IShopInput): Promise<{ shop: IShop; success: boolean }> {
     try {
       const shopRecord = await this.shopModel.create({
-        title:shopInputDTO.title,
-        photo:shopInputDTO.photo
+        title: shopInputDTO.title,
+        photo: shopInputDTO.photo
       })
       console.log('ham cvhalein')
       if (!shopRecord) {
@@ -37,26 +37,29 @@ export default class ShopService {
       }
       const shop = shopRecord;
       const success = true;
-      console.log('shop',shop)
+      console.log('shop', shop)
       return { shop, success };
     } catch (e) {
       console.log("ERRRRRRORRR_____RRRRR__RRRR", e)
-       this.logger.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
 
-  public async deleteShop(shopId:IShopInput): Promise<{success:boolean;}> {
-  try{
-   const shopRecord= this.shopModel.remove( {"_id": ObjectId("4d512b45cc9374271b02ec4f")});
+  public async deleteShop(shopId: ObjectId): Promise<{  success: boolean; }> {
+    try {
+      
+      const shopRecord = this.shopModel.findOneAndRemove({ "_id": shopId });
+     console.log('shop----record---s', shopRecord)
+      return { success: true}
 
-  }catch(e){
+    } catch (e) {
+      console.log('error', e)
 
+    }
   }
 
-
-    return {success:true}
-  }
+  
 
 
 

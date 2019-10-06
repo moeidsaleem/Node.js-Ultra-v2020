@@ -12,9 +12,15 @@ export default (app: Router) => {
   const shopServiceInstance = Container.get(shopService);
 
   //get All
-  route.get('/all', middlewares.isAuth, middlewares.attachCurrentUser, (req: Request, res: Response) => {
+  route.get('/all', middlewares.isAuth, middlewares.attachCurrentUser,async (req: Request, res: Response) => {
 
-    return res.json({ user: req.currentUser }).status(200);
+    try{
+        const {shops} = await shopServiceInstance.getShops();
+        return res.json({ shops }).status(200);
+
+    }catch(e){
+
+    }
   });
 
   //get Single 
@@ -43,4 +49,16 @@ export default (app: Router) => {
         }
     })
   
+
+    //create Shop
+  route.get('/delete/:id', async(req:Request, res:Response, next: NextFunction)=>{
+  console.log(req.body);
+      try{
+          const {  success } = await shopServiceInstance.deleteShop(req.params.id as string);
+          return res.status(201).json({ success});
+      }catch(e){
+          console.log(e);
+          return next(e)
+      }
+  })
 };
