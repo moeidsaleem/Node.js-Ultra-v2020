@@ -81,12 +81,29 @@ export default class ShopService {
 
   public async likeShop(userId,shopId: string): Promise<{  success: boolean; }> {
     try {
+this.shopModel.findOneAndUpdate({_id: shopId}
+, {$push: {likes:  userId}}
+, function (err, doc) {
+    if (err) {
+        console.log("update document error");
+    } else {
+        console.log("update document success");
+        console.log('docs',doc);
+    }
+});
+      return { success: true}
 
+    } catch (e) {
+      console.log('error', e)
 
+    }
+  }
 
+  public async dislikeShop(userId,shopId: string): Promise<{  success: boolean; }> {
+    try {
 this.shopModel.findOneAndUpdate({_id: shopId}
 
-, {$push: {likes:  userId}}
+, {$pop: {likes:  userId}}
 
 , function (err, doc) {
 
@@ -111,8 +128,7 @@ this.shopModel.findOneAndUpdate({_id: shopId}
 
     }
   }
-
-  
+ 
 
 
 }

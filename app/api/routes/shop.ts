@@ -12,11 +12,12 @@ export default (app: Router) => {
   const shopServiceInstance = Container.get(shopService);
 
   //get All
-  route.get('/all', middlewares.isAuth, middlewares.attachCurrentUser,async (req: Request, res: Response) => {
-
+  route.post('/all', middlewares.isAuth, middlewares.attachCurrentUser,async (req: Request, res: Response) => {
     try{
-        const {shops} = await shopServiceInstance.getShops(req.currentUser.location);
-        return res.json({ shops }).status(200);
+        let location =req.body.location;
+        console.log('location', location)
+        const {shops} = await shopServiceInstance.getShops(location);
+        return res.json(shops).status(200);
 
     }catch(e){
 
@@ -76,6 +77,19 @@ route.get('/like/:id',  middlewares.isAuth, middlewares.attachCurrentUser,async(
     })
   
   
+  
+    //dislike shop
+    //like Shop
+route.get('/dislike/:id',  middlewares.isAuth, middlewares.attachCurrentUser,async(req:Request, res:Response, next: NextFunction)=>{
+    console.log(req.body);
+        try{
+            const {  success } = await shopServiceInstance.likeShop(req.currentUser._id,req.params.id as string);
+            return res.status(201).json({ success});
+        }catch(e){
+            console.log(e);
+            return next(e)
+        }
+    })
   
   
     
