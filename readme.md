@@ -2,6 +2,8 @@
 
 ## Souqalmal Challenge - Backend 
 
+Please refer to the following API documentation - - https://documenter.getpostman.com/view/1999203/SVtR2WEi?version=latest
+
 The challenge involved creating a node.js backend for a simple CRUD with Authentication project.
 As for my experience, I could have handled this project with serverless approach for faster development or I could have completed a very powerful Access management control based API that is highly flexible in terms of scaleablity. 
 
@@ -39,7 +41,7 @@ or you can also use
 
 ### Steps
 
-
+F
 
 
 ### API Docs 
