@@ -17,7 +17,9 @@ const Shop = new mongoose.Schema(
             type: { type: String },
             coordinates: []
           },
-
+          likes:{
+              type:Array
+          }
 
 },{
     timestamp: true

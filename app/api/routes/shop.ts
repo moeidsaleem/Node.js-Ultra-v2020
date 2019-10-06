@@ -52,7 +52,7 @@ export default (app: Router) => {
   
 
     //create Shop
-  route.get('/delete/:id', async(req:Request, res:Response, next: NextFunction)=>{
+  route.get('/delete/:id', middlewares.isAuth, middlewares.attachCurrentUser, async(req:Request, res:Response, next: NextFunction)=>{
   console.log(req.body);
       try{
           const {  success } = await shopServiceInstance.deleteShop(req.params.id as string);
@@ -62,4 +62,24 @@ export default (app: Router) => {
           return next(e)
       }
   })
+
+//like Shop
+route.get('/like/:id',  middlewares.isAuth, middlewares.attachCurrentUser,async(req:Request, res:Response, next: NextFunction)=>{
+    console.log(req.body);
+        try{
+            const {  success } = await shopServiceInstance.likeShop(req.currentUser._id,req.params.id as string);
+            return res.status(201).json({ success});
+        }catch(e){
+            console.log(e);
+            return next(e)
+        }
+    })
+  
+  
+  
+  
+    
+
+
+  
 };

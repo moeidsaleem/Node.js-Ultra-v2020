@@ -5,6 +5,7 @@ export interface IUser {
     password: string;
     salt: string;
     location: any;
+    likes:Array<any>;
   }
   
   export interface IUserInput {
@@ -12,5 +13,6 @@ export interface IUser {
     email: string;
     password: string;
     location: any;
+
   }
   

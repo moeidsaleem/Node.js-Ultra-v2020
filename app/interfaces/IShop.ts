@@ -3,6 +3,7 @@ export interface IShop {
     title: string;
     photo: string;
     location: any;
+    likes:any;
 
   }
   
@@ -10,6 +11,7 @@ export interface IShop {
     title: string;
     photo: string;
     location: any;
+    likes:any;
 
   }
   

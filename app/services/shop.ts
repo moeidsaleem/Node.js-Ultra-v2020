@@ -7,6 +7,7 @@ export default class ShopService {
 
   constructor(
     @Inject('shopModel') private shopModel: Models.ShopModel,
+    @Inject('userModel') private userModel: Models.UserModel,
     @Inject('logger') private logger,
   ) { }
   public async getShops(userLoc?): Promise<{ shops: Array<IShop>; }> {
@@ -49,7 +50,8 @@ export default class ShopService {
       const shopRecord = await this.shopModel.create({
         title: shopInputDTO.title,
         photo: shopInputDTO.photo,
-        location:shopInputDTO.location
+        location:shopInputDTO.location,
+        likes:[]
       })
       if (!shopRecord) {
         throw new Error('Shop cannot be created');
@@ -69,6 +71,39 @@ export default class ShopService {
       
       const shopRecord = this.shopModel.findOneAndRemove({ "_id": shopId });
      console.log('shop----record---s', shopRecord)
+      return { success: true}
+
+    } catch (e) {
+      console.log('error', e)
+
+    }
+  }
+
+  public async likeShop(userId,shopId: string): Promise<{  success: boolean; }> {
+    try {
+
+
+
+this.shopModel.findOneAndUpdate({_id: shopId}
+
+, {$push: {likes:  userId}}
+
+, function (err, doc) {
+
+    if (err) {
+
+        console.log("update document error");
+
+    } else {
+
+        console.log("update document success");
+
+        console.log('docs',doc);
+
+    }
+
+});
+
       return { success: true}
 
     } catch (e) {
